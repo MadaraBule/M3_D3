@@ -22,7 +22,7 @@
           method: "GET",
           headers: {
             Authorization:
-              "Bearer [563492ad6f9170000100000101564bbb78674467998ff5366baf82d1]",
+              "Bearer 563492ad6f917000010000014555f925f9924a7d8bc9b00ceca94ae9",
           },
         })
           .then((response) => response.json())
@@ -45,57 +45,57 @@
           });
       };
 
-      // const uploadImages = (title, images) => {
-      //   return ` <div class="card mb-4 shadow-sm">
-      //           <svg
-      //             class="image-cover bd-placeholder-img card-img-top"
-      //             width="100%"
-      //             height="225"
-      //             xmlns= ${images}
-      //             preserveAspectRatio="xMidYMid slice"
-      //             focusable="false"
-      //             role="img"
-      //             aria-label="Placeholder: Thumbnail"
-      //           >
-      //             <title>${title}</title>
-      //             <rect width="100%" height="100%" fill="#55595c" />
-      //             <text x="50%" y="50%" fill="#eceeef" dy=".3em">
-      //               Thumbnail
-      //             </text>
-      //           </svg>
-      //           <div class="card-body">
-      //             <p class="card-text">
-      //               This is a wider card with supporting text below as a natural
-      //               lead-in to additional content. This content is a little bit
-      //               longer.
-      //             </p>
-      //             <div
-      //               class="d-flex justify-content-between align-items-center"
-      //             >
-      //               <div class="btn-group">
-      //                 <button
-      //                   type="button"
-      //                   class="btn btn-sm btn-outline-secondary"
-      //                 >
-      //                   View
-      //                 </button>
-      //                 <button
-      //                   type="button"
-      //                   class="btn btn-sm btn-outline-secondary"
-      //                 >
-      //                   Edit
-      //                 </button>
-      //               </div>
-      //               <small class="text-muted">9 mins</small>
-      //             </div>
-      //           </div>
-      //         </div>
-      //   `;
-      // };
+      const uploadImages = (title, images) => {
+        return ` <div class="card mb-4 shadow-sm">
+                <svg
+                  class="image-cover bd-placeholder-img card-img-top"
+                  width="100%"
+                  height="225"
+                  xmlns= ${images}
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                  role="img"
+                  aria-label="Placeholder: Thumbnail"
+                >
+                  <title>${title}</title>
+                  <rect width="100%" height="100%" fill="#55595c" />
+                  <text x="50%" y="50%" fill="#eceeef" dy=".3em">
+                    Thumbnail
+                  </text>
+                </svg>
+                <div class="card-body">
+                  <p class="card-text">
+                    This is a wider card with supporting text below as a natural
+                    lead-in to additional content. This content is a little bit
+                    longer.
+                  </p>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="btn-group">
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                      >
+                        View
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                      >
+                        Edit
+                      </button>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                  </div>
+                </div>
+              </div>
+        `;
+      };
 
       window.onload = function () {
         fetchImages("cats");
-        // fetchImages("dogs");
+        fetchImages("dogs");
 
         const loadImages = document.querySelector("#load-images");
 
@@ -107,17 +107,16 @@
               node.remove();
             }
           });
-          //     // images.forEach((imageResult) => {
-          //     //   let rowContent = "";
-          //     //   const image_id = imageResult.id;
-          //     //   const photos = imageResult.photos;
+          images.forEach((imageResult) => {
+            let rowContent = "";
+            const image_id = imageResult.id;
+            const photos = imageResult.photos;
 
-          //     //   data.forEach((result) => {
-          //     //     const title = result.title;
-          //     //     rowContent += uploadImages(images);
-          //     //   })
-
-          //     // });
+            data.forEach((result) => {
+              const title = result.title;
+              rowContent += uploadImages(images);
+            });
+          });
         });
       };
     </script>
