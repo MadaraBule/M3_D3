@@ -13,113 +13,6 @@
         
         {Authorization: "Bearer [YOUR API KEY]"} -->
 
-    <script>
-      let images = []; //setting images[] to empty
-      let error = false; //setting error initially to false which means no errors for now
-      //Function to fetch images
-      const fetchImages = (query) => {
-        fetch("https://api.pexels.com/v1/search?query=" + query, {
-          method: "GET",
-          headers: {
-            Authorization:
-              "Bearer 563492ad6f917000010000014555f925f9924a7d8bc9b00ceca94ae9",
-          },
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("promise resolved");
-            console.log(data);
-            if (data.photos) {
-              const obj = { title: query, images: data.data };
-              images.push(obj);
-              console.log(images);
-            } else {
-              error = true;
-            }
-          })
-          .catch((err) => {
-            //REJECTED
-            console.log("Promise Rejected");
-            console.error(err);
-            error = true;
-          });
-      };
-
-      const uploadImages = (title, images) => {
-        return ` <div class="card mb-4 shadow-sm">
-                <svg
-                  class="image-cover bd-placeholder-img card-img-top"
-                  width="100%"
-                  height="225"
-                  xmlns= ${images}
-                  preserveAspectRatio="xMidYMid slice"
-                  focusable="false"
-                  role="img"
-                  aria-label="Placeholder: Thumbnail"
-                >
-                  <title>${title}</title>
-                  <rect width="100%" height="100%" fill="#55595c" />
-                  <text x="50%" y="50%" fill="#eceeef" dy=".3em">
-                    Thumbnail
-                  </text>
-                </svg>
-                <div class="card-body">
-                  <p class="card-text">
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content. This content is a little bit
-                    longer.
-                  </p>
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <div class="btn-group">
-                      <button
-                        type="button"
-                        class="btn btn-sm btn-outline-secondary"
-                      >
-                        View
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-sm btn-outline-secondary"
-                      >
-                        Edit
-                      </button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-        `;
-      };
-
-      window.onload = async function () {
-      await   fetchImages("cats");
-        fetchImages("dogs");
-
-        const loadImages = document.querySelector("#load-images");
-
-        loadImages.addEventListener("click", function () {
-          let pageContent = document.querySelector(".image-cover");
-          let pageContentHTML = "";
-          pageContent.childNodes.forEach((node, index) => {
-            if (index !== 1) {
-              node.remove();
-            }
-          });
-          images.forEach((imageResult) => {
-            let rowContent = "";
-            const image_id = imageResult.id;
-            const photos = imageResult.photos;
-
-            data.forEach((result) => {
-              const title = result.title;
-              rowContent += uploadImages(images);
-            });
-          });
-        });
-      };
-    </script>
     <!-- this should be enough for you to make your GET request successfully
 
       
@@ -305,7 +198,9 @@
             <a href="#" id="load-images" class="btn btn-primary my-2"
               >Load Images</a
             >
-            <a href="#" class="btn btn-secondary my-2">Load Secondary Images</a>
+            <a href="#" id="load-new-images" class="btn btn-secondary my-2"
+              >Load Secondary Images</a
+            >
           </p>
         </div>
       </section>
@@ -326,7 +221,7 @@
                   aria-label="Placeholder: Thumbnail"
                 >
                   <title>Placeholder</title>
-                 ="100%" height="100%" fill="#55595c" />
+                  ="100%" height="100%" fill="#55595c" />
                   <text x="50%" y="50%" fill="#eceeef" dy=".3em">
                     Thumbna <rect widthil
                   </text>
@@ -733,6 +628,40 @@
         </div>
       </div>
     </main>
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <footer class="text-muted">
       <div class="container">
@@ -745,6 +674,190 @@
         </p>
       </div>
     </footer>
+    <script>
+      const showThing = (e) => {
+        const url = e.target.closest(".card").children[0].src;
+        const modalbod = document.querySelector(".modal-body");
+        const image = ` <img src "${img.large_url}"style ="width:100%,object-fit:cover;"/>`;
+        modalbody.innerHTML = image;
+      };
+      const remove = (e) => {
+        e.target.closest(".col-md-4").remove();
+      };
+      const renderData = (data) => {
+        const parent = document.querySelector(".album .row");
+        parent.innerHTML = "";
+        data.forEach((img) => {
+          const card = ` <div class="card mb-4 shadow-sm">
+                  <img src "${img.large_url}"/>
+                     <title> "${title}" </title>
+                     <rect width="100%" height="100%" fill="#55595c" />
+                     <text x="50%" y="50%" fill="#eceeef" dy=".3em">
+                       Thumbnail
+                     </text>
+                   </svg>
+                   <div class="card-body">
+                     <div
+                       class="d-flex justify-content-between align-items-center"
+                     >
+                       <div class="btn-group">
+                         <button
+                           type="button"
+                            class="btn btn-sm btn-outline-secondary"
+                            onclick="showModal(event)"
+                            data-toggle="modal" data-target="#exampleModal"
+                         >
+                           View
+                         </button>
+                          <button
+                           type="button"
+                           class="btn btn-sm btn-outline-secondary"
+                           onclick="remove(event)"
+                         >
+                           Edit
+                         </button>
+                       </div>
+                       <small class="text-muted">${img.id}</small>
+                    </div>
+                  </div>
+                 </div>
+           `;
+          parent.innerHTML += card;
+        });
+      };
+      const fetchImages = (query) => {
+        fetch(`https://api.pexels.com/v1/search?query=${query}`, {
+          headers: {
+            Authorization: "563492ad6f91700001000001a9c8f8b9d9c8f8b9d9c8f8b9d",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            renderData(data.images);
+          })
+          .catch((err) => console.log(err));
+      };
+      fetchImages("cat");
+
+      window.onload = function () {
+        const buttonOne = document.getElementById("load-images");
+        const buttonTwo = document.getElementById("load-new-images");
+        buttonOne.addEventListener("click", () => {
+          fetchImages("cat");
+        });
+        buttonTwo.addEventListener("click", () => {
+          fetchImages("dog");
+        });
+      };
+    </script>
+    <script>
+      //   let images = []; //setting images[] to empty
+      //   let error = false; //setting error initially to false which means no errors for now
+      //   //Function to fetch images
+      //   const fetchImages = (query) => {
+      //     fetch("https://api.pexels.com/v1/search?query=" + query, {
+      //       method: "GET",
+      //       headers: {
+      //         Authorization:
+      //           "Bearer 563492ad6f917000010000014555f925f9924a7d8bc9b00ceca94ae9",
+      //       },
+      //     })
+      //       .then((response) => response.json())
+      //       .then((data) => {
+      //         console.log("promise resolved");
+      //         console.log(data);
+      //         if (data.photos) {
+      //           const obj = { title: query, images: data.data };
+      //           images.push(obj);
+      //           console.log(images);
+      //         } else {
+      //           error = true;
+      //         }
+      //       })
+      //       .catch((err) => {
+      //         //REJECTED
+      //         console.log("Promise Rejected");
+      //         console.error(err);
+      //         error = true;
+      //       });
+      //   };
+
+      //   const uploadImages = (title, images) => {
+      //     return ` <div class="card mb-4 shadow-sm">
+      //             <svg
+      //               class="image-cover bd-placeholder-img card-img-top"
+      //               width="100%"
+      //               height="225"
+      //               xmlns= ${images}
+      //               preserveAspectRatio="xMidYMid slice"
+      //               focusable="false"
+      //               role="img"
+      //               aria-label="Placeholder: Thumbnail"
+      //             >
+      //               <title>${title}</title>
+      //               <rect width="100%" height="100%" fill="#55595c" />
+      //               <text x="50%" y="50%" fill="#eceeef" dy=".3em">
+      //                 Thumbnail
+      //               </text>
+      //             </svg>
+      //             <div class="card-body">
+      //               <p class="card-text">
+      //                 This is a wider card with supporting text below as a natural
+      //                 lead-in to additional content. This content is a little bit
+      //                 longer.
+      //               </p>
+      //               <div
+      //                 class="d-flex justify-content-between align-items-center"
+      //               >
+      //                 <div class="btn-group">
+      //                   <button
+      //                     type="button"
+      //                     class="btn btn-sm btn-outline-secondary"
+      //                   >
+      //                     View
+      //                   </button>
+      //                   <button
+      //                     type="button"
+      //                     class="btn btn-sm btn-outline-secondary"
+      //                   >
+      //                     Edit
+      //                   </button>
+      //                 </div>
+      //                 <small class="text-muted">9 mins</small>
+      //               </div>
+      //             </div>
+      //           </div>
+      //     `;
+      //   };
+
+      //   window.onload = async function () {
+      //   await   fetchImages("cats");
+      //     fetchImages("dogs");
+
+      //     const loadImages = document.querySelector("#load-images");
+
+      //     loadImages.addEventListener("click", function () {
+      //       let pageContent = document.querySelector(".image-cover");
+      //       let pageContentHTML = "";
+      //       pageContent.childNodes.forEach((node, index) => {
+      //         if (index !== 1) {
+      //           node.remove();
+      //         }
+      //       });
+      //       images.forEach((imageResult) => {
+      //         let rowContent = "";
+      //         const image_id = imageResult.id;
+      //         const photos = imageResult.photos;
+
+      //         data.forEach((result) => {
+      //           const title = result.title;
+      //           rowContent += uploadImages(images);
+      //         });
+      //       });
+      //     });
+      //   };
+      //
+    </script>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
